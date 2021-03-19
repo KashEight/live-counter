@@ -1,1 +1,1 @@
-module "github.com/KashEight/livecounter"
+module "github.com/KashEight/live-counter"
