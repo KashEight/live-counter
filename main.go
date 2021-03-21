@@ -100,10 +100,15 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		currentDay := time.Now()
+		hourSub := currentDay.Hour() - baseDay.Hour()
+
+		if hourSub < 0 {
+			hourSub += 9
+		}
 
 		t := Time{
 			Day:    currentDay.Day() - baseDay.Day(),
-			Hour:   currentDay.Hour() - baseDay.Hour(),
+			Hour:   hourSub,
 			Minute: currentDay.Minute() - baseDay.Minute(),
 			Second: currentDay.Second() - baseDay.Second(),
 		}
