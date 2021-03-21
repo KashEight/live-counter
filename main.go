@@ -103,7 +103,7 @@ func main() {
 		hourSub := currentDay.Hour() - baseDay.Hour()
 
 		if hourSub < 0 {
-			hourSub += 9
+			hourSub = 24 - hourSub
 		}
 
 		t := Time{
