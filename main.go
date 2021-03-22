@@ -97,9 +97,10 @@ type Time struct {
 
 func main() {
 	baseDay, _ := time.Parse(time.RFC3339, "2021-03-19T09:00:00+09:00") // このコードを書いた日が 2021/3/19 なので
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		currentDay := time.Now()
+		currentDay := time.Now().In(jst)
 		hourSub := currentDay.Hour() - baseDay.Hour()
 
 		if hourSub < 0 {
