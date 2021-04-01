@@ -101,17 +101,14 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		currentDay := time.Now().In(jst)
-		hourSub := currentDay.Hour() - baseDay.Hour()
-
-		if hourSub < 0 {
-			hourSub = 24 + hourSub
-		}
+		sub := currentDay.Sub(baseDay)
+		hourSub := int(sub.Hours())
 
 		t := Time{
-			Day:    currentDay.Day() - baseDay.Day(),
-			Hour:   hourSub,
-			Minute: currentDay.Minute() - baseDay.Minute(),
-			Second: currentDay.Second() - baseDay.Second(),
+			Day:    hourSub / 24,
+			Hour:   hourSub % 24,
+			Minute: int(sub.Minutes()) % 60,
+			Second: int(sub.Seconds()) % 60,
 		}
 
 		tmpl := template.Must(template.New("").Parse(HtmlTemplate))
